@@ -1,12 +1,39 @@
+let elList = document.querySelector('.list')
+let elForm = document.querySelector('.form')
 let elMovie__list = document.querySelector('.movie__list')
 let elPagenation__list = document.querySelector('.pagenation__list')
+let elSelect = document.querySelector('.select')
+let ElSelect = document.querySelector('.rating')
+
+const freeArr = []
+
+elForm.addEventListener('submit', (evn)=>{
+    evn.preventDefault()
+    let elVal = elInp.value
+    elList.innerHTML = ''
+    movies.forEach((e)=>{
+      if(e.Title.toLocaleUpperCase().includes(elVal.toLocaleUpperCase()) || e.Categories.toLocaleUpperCase().includes(elVal.toLocaleUpperCase())){
+        let newLi = document.createElement('li')
+      newLi.innerHTML =  `<div class="card">
+      <h2 ${e.Title}</h2>
+      <h3 ${e.Categories}</h3>
+      <h4 ${e.movie_year}</h4>
+      <h4 ${e.imdb_rating}</h4>
+      </div>`
+      elList.appendChild(newLi)
+      }
+    })
+  })
+
+
+
 
 const data = movies.slice(0, 10)
 
 mapper(data)
 function mapper(data){
     elMovie__list.innerHTML = ''
-    data.forEach((item, index)=>{
+    data.forEach((item)=>{
         let newLi = document.createElement('li')
     
         newLi.innerHTML = `
@@ -26,7 +53,9 @@ function mapper(data){
     })
 }
 
-let.count = movies.length / 11
+
+
+let count = movies.length / 10
 for(let i = 1; i<= count; i++){
     let newBtn = document.createElement('button')
     newBtn.textContent = i
@@ -38,10 +67,12 @@ for(let i = 1; i<= count; i++){
 let elBtnList = document.querySelectorAll('.page__btn')
 
 elBtnList.forEach((btn)=>{
-    btn.addEventListener('click', (e)=>{
+    btn.addEventListener('click', ()=>{
         let id = btn.id
 
         const pageData = movies.slice(id * 10, id*10+10)
         mapper(pageData)
     })
 })
+
+
